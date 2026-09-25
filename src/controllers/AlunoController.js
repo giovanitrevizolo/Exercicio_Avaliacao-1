@@ -1,4 +1,4 @@
-const { id } = require("zod/locales");
+const { id, tr } = require("zod/locales");
 const alunoService = require("../services/AlunoService");
 
 class AlunoController{
@@ -10,6 +10,17 @@ class AlunoController{
         const totalAlunos = await alunoService.countTotal();
 
         return response.status(200).json({alunos , totalAlunos});
+    }
+
+    async findUnique(request, response){
+        try{
+            const {id} = request.params;
+            const aluno = await alunoService.findUnique(id);
+            return response.status(200).json({aluno});
+        }
+        catch(error){
+            return response.status(400).json({erro : error.message})
+        }
     }
     
 

@@ -17,6 +17,15 @@ class AlunoService{
         return totalAlunos;
     }
 
+    async findUnique(id){
+            const aluno = await prisma.aluno.findUnique({where: {id: id}});
+            if(!aluno){
+                throw new Error("Aluno não encontrado");
+            }
+            return aluno;             
+
+    }
+
     async create(aluno){
         const {nome, email} = aluno;
         if(!nome || !email){
