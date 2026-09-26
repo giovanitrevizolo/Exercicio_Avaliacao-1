@@ -1,5 +1,6 @@
 const { id, tr } = require("zod/locales");
 const alunoService = require("../services/AlunoService");
+const { response } = require("express");
 
 class AlunoController{
     
@@ -33,6 +34,7 @@ class AlunoController{
         }
     }
 
+
     async create(request, response){
         try{
             const aluno = await alunoService.create(request.body);
@@ -41,6 +43,7 @@ class AlunoController{
             return response.status(400).json({error: error.message});
         }
     }
+
 
 }
 
