@@ -1,5 +1,6 @@
 const prisma = require("../databases/prisma");
 const AlunoInvalidoError = require("../errors/AlunoInvalidoError");
+const AlunoNaoEncontradoError = require("../errors/AlunoNaoEncontradoError");
 
 class AlunoService{
 
@@ -20,10 +21,23 @@ class AlunoService{
     async findUnique(id){
             const aluno = await prisma.aluno.findUnique({where: {id: id}});
             if(!aluno){
-                throw new Error("Aluno não encontrado");
+                throw new AlunoNaoEncontradoError;
             }
             return aluno;             
 
+    }
+
+    async update(alunoDados, id){
+        const aluno = await prisma.aluno.update({
+            where: {id : id} , 
+            data: alunoDados
+        });
+
+        if(!aluno) {
+            throw new Error("aluno não encontrado");
+        }
+
+        return aluno;
     }
 
     async create(aluno){

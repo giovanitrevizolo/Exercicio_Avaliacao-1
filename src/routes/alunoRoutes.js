@@ -15,4 +15,7 @@ router.get("/:id" , validarParams, alunoController.findUnique);
 
 router.post("/", validarAluno, alunoController.create);
 
+router.put("/:id", validarAluno, validarParams, alunoController.updateDados);
+
+
 module.exports = router;

@@ -19,10 +19,19 @@ class AlunoController{
             return response.status(200).json({aluno});
         }
         catch(error){
-            return response.status(400).json({erro : error.message})
+            return response.status(404).json({erro : error.message})
         }
     }
     
+    async updateDados(request, response){
+        try{
+            const {id} = request.params;
+            const aluno = await alunoService.update(request.body , id);
+            return response.status(200).json({aluno});
+        } catch(error){
+            return response.status(400).json({erro: error.message})
+        }
+    }
 
     async create(request, response){
         try{

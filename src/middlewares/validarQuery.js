@@ -7,7 +7,7 @@ const validarQuery = (request,response,  next)=>{
 
     if(!result.success){
         
-        Object.defineProperty(request, 'query', {value: { page:1, pageSize:10, orderBy:"id", order: "asc" }
+        Object.defineProperty(request, 'query', {value: { page:1, pageSize:5, orderBy:"id", order: "asc" }
         }); 
     }
 
