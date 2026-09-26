@@ -50,6 +50,16 @@ class AlunoService{
 
         return novoAluno;
     }
+
+    async delete(id) {
+        const aluno = await prisma.aluno.delete({where : id});
+        if(!aluno){
+            throw new AlunoNaoEncontradoError();
+        }
+
+        return aluno;
+        
+    }
 }
 
 module.exports = new AlunoService();

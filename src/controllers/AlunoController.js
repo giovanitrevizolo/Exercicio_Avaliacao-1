@@ -6,6 +6,10 @@ class AlunoController{
     
     async findMany(request, response){
         let {page, pageSize, orderBy, order} = request.query;
+        page ||= 1;
+        pageSize ||= 10;
+        order ||="asc";
+        orderBy ||="id";
         
         const alunos = await alunoService.findMany(page, pageSize , order, orderBy);
         const totalAlunos = await alunoService.countTotal();
@@ -40,6 +44,15 @@ class AlunoController{
             const aluno = await alunoService.create(request.body);
             return response.status(201).json({aluno});
         }catch(error){
+            return response.status(400).json({error: error.message});
+        }
+    }
+
+    async delete(request, response){
+        try{
+            const aluno = await alunoService.delete(request.params)
+            return response.status(204).send();
+        } catch(error){
             return response.status(400).json({error: error.message});
         }
     }
